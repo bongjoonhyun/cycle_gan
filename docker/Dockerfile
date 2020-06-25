@@ -1,8 +1,6 @@
 FROM nvidia/cuda:10.2-devel-ubuntu18.04
 MAINTAINER bongjoon.hyun@gmail.com
 
-COPY PA2_Skeleton/requirements.txt /cycle_gan
-
 ENV PATH=/usr/local/cuda/bin:$PATH
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
@@ -31,6 +29,7 @@ RUN pip install opencv-python
 RUN pip install numpy
 
 # Install requirements.txt
+COPY PA2_Skeleton/requirements.txt /cycle_gan/requirements.txt
 RUN pip install -r /cycle_gan/requirements.txt
 
 # Install PyTorch
