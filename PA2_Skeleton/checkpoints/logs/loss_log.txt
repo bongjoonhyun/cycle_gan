@@ -1,0 +1,12 @@
+================ Training Loss (Fri Jun 26 22:17:02 2020) ================
+================ Training Loss (Fri Jun 26 22:19:17 2020) ================
+================ Training Loss (Fri Jun 26 22:22:06 2020) ================
+================ Training Loss (Fri Jun 26 22:23:20 2020) ================
+================ Training Loss (Fri Jun 26 22:25:43 2020) ================
+(epoch: 1, iters: 200, time: 0.019, data: 0.183) D_A: 0.611 G_A: 0.953 cycle_A: 3.599 idt_A: 2.605 D_B: 0.577 G_B: 0.898 cycle_B: 5.224 idt_B: 1.781 
+(epoch: 1, iters: 400, time: 0.051, data: 0.002) D_A: 0.349 G_A: 0.941 cycle_A: 4.046 idt_A: 2.148 D_B: 0.478 G_B: 1.059 cycle_B: 4.336 idt_B: 1.960 
+(epoch: 1, iters: 600, time: 0.019, data: 0.003) D_A: 0.234 G_A: 0.552 cycle_A: 3.853 idt_A: 1.832 D_B: 0.328 G_B: 0.842 cycle_B: 3.774 idt_B: 1.809 
+(epoch: 1, iters: 800, time: 0.038, data: 0.002) D_A: 0.345 G_A: 0.410 cycle_A: 4.144 idt_A: 2.291 D_B: 0.420 G_B: 0.673 cycle_B: 4.863 idt_B: 1.843 
+(epoch: 1, iters: 1000, time: 0.021, data: 0.003) D_A: 0.222 G_A: 0.379 cycle_A: 4.217 idt_A: 2.125 D_B: 0.523 G_B: 0.737 cycle_B: 4.606 idt_B: 1.735 
+(epoch: 1, iters: 1200, time: 0.036, data: 0.003) D_A: 0.213 G_A: 0.391 cycle_A: 4.104 idt_A: 1.787 D_B: 0.217 G_B: 0.438 cycle_B: 3.928 idt_B: 1.366 
+(epoch: 2, iters: 64, time: 0.020, data: 0.003) D_A: 0.199 G_A: 0.421 cycle_A: 2.265 idt_A: 1.336 D_B: 0.150 G_B: 0.590 cycle_B: 2.915 idt_B: 0.733 

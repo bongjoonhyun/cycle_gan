@@ -303,6 +303,13 @@ class GANLoss(nn.Module):
                 loss = prediction.mean()
         return loss
 
+    def get_target_tensor(self, prediction, target_is_real):
+        if target_is_real:
+            target_tensor = self.real_label
+        else:
+            target_tensor = self.fake_label
+        return target_tensor.expand_as(prediction)
+
 
 class UnetSkipConnectionBlock(nn.Module):
     def __init__(self, outer_nc, inner_nc, input_nc=None,
@@ -326,7 +333,7 @@ class UnetSkipConnectionBlock(nn.Module):
                     nn.Conv2d(input_nc, inner_nc, kernel_size=4,
                               stride=2, padding=1, bias=use_bias),
                     nn.ReLU(True),
-                    nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                    nn.ConvTranspose2d(inner_nc, outer_nc,
                                        kernel_size=4, stride=2, padding=1),
                     nn.Tanh()
                 )
@@ -336,7 +343,7 @@ class UnetSkipConnectionBlock(nn.Module):
                               stride=2, padding=1, bias=use_bias),
                     submodule,
                     nn.ReLU(True),
-                    nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                    nn.ConvTranspose2d(inner_nc, outer_nc,
                                        kernel_size=4, stride=2, padding=1),
                     nn.Tanh()
                 )
@@ -361,7 +368,7 @@ class UnetSkipConnectionBlock(nn.Module):
                         norm_layer(inner_nc),
                         submodule,
                         nn.ReLU(True),
-                        nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                        nn.ConvTranspose2d(inner_nc, outer_nc,
                                            kernel_size=4, stride=2,
                                            padding=1, bias=use_bias),
                         norm_layer(outer_nc),
@@ -375,7 +382,7 @@ class UnetSkipConnectionBlock(nn.Module):
                         norm_layer(inner_nc),
                         submodule,
                         nn.ReLU(True),
-                        nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                        nn.ConvTranspose2d(inner_nc, outer_nc,
                                            kernel_size=4, stride=2,
                                            padding=1, bias=use_bias),
                         norm_layer(outer_nc)
@@ -384,7 +391,7 @@ class UnetSkipConnectionBlock(nn.Module):
                 if use_dropout:
                     self.model = nn.Sequential(
                         nn.LeakyReLU(0.2, True),
-                        nn.Conv2d(input_nc, inner_nc, kernel_size=4,
+                        nn.Conv2d(input_nc, inner_nc * 2, kernel_size=4,
                                   stride=2, padding=1, bias=use_bias),
                         norm_layer(inner_nc),
                         nn.ReLU(True),
@@ -401,7 +408,7 @@ class UnetSkipConnectionBlock(nn.Module):
                                   stride=2, padding=1, bias=use_bias),
                         norm_layer(inner_nc),
                         nn.ReLU(True),
-                        nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                        nn.ConvTranspose2d(inner_nc, outer_nc,
                                            kernel_size=4, stride=2,
                                            padding=1, bias=use_bias),
                         norm_layer(outer_nc)

@@ -173,7 +173,7 @@ class CycleGANModel(BaseModel):
 
             self.idt_B = self.netG_B(self.real_A)
             self.loss_idt_B = self.criterionIdt(self.idt_B, self.real_A) * \
-                              self.opt.lambda_ * self.opt.lambda_identity
+                              self.opt.lambda_A * self.opt.lambda_identity
         else:
             self.loss_idt_A = 0
             self.loss_idt_B = 0
