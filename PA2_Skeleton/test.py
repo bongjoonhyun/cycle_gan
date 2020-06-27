@@ -60,10 +60,14 @@ if __name__ == '__main__':
 
     # evaluate by fid score (target -> source)
     ## Your Implementation Here ##
-    fid_scoreA = 0
+    from metric.metric import FIDScoreCalculator
+    results_dir = os.path.join("/cycle_gan/results", opt.name)
+    fid_score_calculator = FIDScoreCalculator(results_dir)
+
+    fid_scoreA = fid_score_calculator.calculate_fid_score("real_A", "fake_B")
     # evaluate by fid score (source -> target)
     ## Your Implementation Here ##
-    fid_scoreB = 0
+    fid_scoreB = fid_score_calculator.calculate_fid_score("real_B", "fake_A")
 
     print('source-like target / source fid score = %d \n' % (fid_scoreA))
     print('target-like source / target fid score = %d \n' % (fid_scoreB))
