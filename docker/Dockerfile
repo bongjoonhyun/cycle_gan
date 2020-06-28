@@ -10,6 +10,10 @@ RUN apt-get install -y git
 RUN apt-get install -y tmux
 RUN apt-get install -y wget
 RUN apt-get install -y vim
+RUN apt-get install -y libglib2.0-0
+RUN apt-get install -y libsm6
+RUN apt-get install -y libxext6
+RUN apt-get install -y libxrender-dev
 
 # Install Anaconda
 RUN wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
