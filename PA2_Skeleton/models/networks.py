@@ -496,12 +496,6 @@ class AttentionGenerator(nn.Module):
         super(AttentionGenerator, self).__init__()
         ## Your Implementation Here ##
 
-        self.imsize = image_size
-        layer1 = []
-        layer2 = []
-        layer3 = []
-        last = []
-
         self.l1 = nn.Sequential(
             nn.ConvTranspose2d(input_nc, ngf * 8, 4),
             nn.BatchNorm2d(ngf * 8),
