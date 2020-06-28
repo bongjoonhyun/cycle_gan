@@ -332,6 +332,7 @@ class UnetSkipConnectionBlock(nn.Module):
                 self.model = nn.Sequential(
                     nn.Conv2d(input_nc, inner_nc, kernel_size=4,
                               stride=2, padding=1, bias=use_bias),
+                    submodule,
                     nn.ReLU(True),
                     nn.ConvTranspose2d(inner_nc, outer_nc,
                                        kernel_size=4, stride=2, padding=1),
@@ -341,7 +342,6 @@ class UnetSkipConnectionBlock(nn.Module):
                 self.model = nn.Sequential(
                     nn.Conv2d(input_nc, inner_nc, kernel_size=4,
                               stride=2, padding=1, bias=use_bias),
-                    submodule,
                     nn.ReLU(True),
                     nn.ConvTranspose2d(inner_nc, outer_nc,
                                        kernel_size=4, stride=2, padding=1),
