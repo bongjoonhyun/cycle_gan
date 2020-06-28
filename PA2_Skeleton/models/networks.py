@@ -311,7 +311,6 @@ class GANLoss(nn.Module):
         return target_tensor.expand_as(prediction)
 
 
-"""
 class UnetSkipConnectionBlock(nn.Module):
     def __init__(self, outer_nc, inner_nc, input_nc=None,
                  submodule=None, outermost=False, innermost=False,
@@ -420,7 +419,6 @@ class UnetSkipConnectionBlock(nn.Module):
             return self.model.forward(x)
         else:
             return torch.cat([x, self.model(x)], 1)
-"""
 
 
 class BaselineGenerator(nn.Module):
@@ -440,18 +438,37 @@ class BaselineGenerator(nn.Module):
         super(BaselineGenerator, self).__init__()
         ## Your Implementation Here ##
 
-        self.model = nn.Sequential(
-            nn.LeakyReLU(0.2, True),
-            nn.Conv2d(input_nc, ngf, kernel_size=4,
-                      stride=2, padding=1),
-            norm_layer(ngf),
-            nn.ReLU(True),
-            nn.ConvTranspose2d(ngf, output_nc,
-                               kernel_size=4, stride=2,
-                               padding=1),
-            norm_layer(output_nc),
-            nn.Dropout(0.5)
-        )
+        model = []
+
+        model += [UnetSkipConnectionBlock(ngf * 8, ngf * 8, input_nc=None,
+                                          submodule=None,
+                                          norm_layer=norm_layer,
+                                          innermost=True)]
+
+        model += [UnetSkipConnectionBlock(ngf * 8, ngf * 8,
+                                          input_nc=None,
+                                          submodule=model[-1],
+                                          norm_layer=norm_layer,
+                                          use_dropout=use_dropout)]
+
+        model += [UnetSkipConnectionBlock(ngf * 4, ngf * 8, input_nc=None,
+                                          submodule=model[-1],
+                                          norm_layer=norm_layer)]
+
+        model += [UnetSkipConnectionBlock(ngf * 2, ngf * 4, input_nc=None,
+                                          submodule=model[-1],
+                                          norm_layer=norm_layer)]
+
+        model += [UnetSkipConnectionBlock(ngf, ngf * 2, input_nc=None,
+                                          submodule=model[-1],
+                                          norm_layer=norm_layer)]
+
+        model += [UnetSkipConnectionBlock(output_nc, ngf, input_nc=input_nc,
+                                          submodule=model[-1],
+                                          outermost=True,
+                                          norm_layer=norm_layer)]
+
+        self.model = model[-1]
 
     def forward(self, input):
         """Standard forward"""
